@@ -1,23 +1,43 @@
-import NextAuth from "next-auth"
-import GoogleProvider from "next-auth/providers/google"
+import { db } from "@/lib/db";
+import NextAuth, { NextAuthOptions } from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
 
-export const authOptions = {
-   providers: [
-      GoogleProvider({
-         clientId: process.env.GOOGLE_ID ?? "",
-         clientSecret: process.env.GOOGLE_SECRET ?? "",
-      })
-   ],
-   pages: {
-		signIn: '/sign-in',
-		signOut: '',
-      newUser: '',
-		error: '',
-		verifyRequest: '',
-	},
+export const authOptions: NextAuthOptions = {
+	providers: [
+		GoogleProvider({
+			clientId: process.env.GOOGLE_ID ?? "",
+			clientSecret: process.env.GOOGLE_SECRET ?? "",
+		}),
+	],
    secret: process.env.NEXTAUTH_SECRET,
-}
+	callbacks: {
+      redirect: async () => {
+         return '/dashboard'
+      },
+   },
+   pages: {
+      signIn: '/sign-in',
+   },
+   events: {
+      async signIn({ user: {  email, name, image, id } }) {
+         const userExist = await db.user.findUnique({
+				where: { email: email! },
+			});
+         if (!userExist) {
+            await db.user.create({
+               data: {
+                  email: email!,
+                  username: email?.split("@")[0]!,
+                  imageUrl: image!,
+                  externalId: id,
+                  fullName: name!,
+               },
+            });
+         };
+      },
+   }
+};
 
-export const auth = NextAuth(authOptions)
+export const auth = NextAuth(authOptions);
 
-export { auth as GET, auth as POST }
+export { auth as GET, auth as POST };

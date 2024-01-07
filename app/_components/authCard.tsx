@@ -1,7 +1,5 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { signIn } from "next-auth/react";
 import Image from "next/image";
+import { AuthButton } from "./authButton";
 
 export const AuthCard = ({
 	action,
@@ -16,14 +14,13 @@ export const AuthCard = ({
 				<p className="text-xl font-semibold">{action}</p>
 				<p className="text-sm">to continue to Hub</p>
 			</div>
-			<Button
-				onClick={() => signIn("google")}
-				variant="ghost"
+			<AuthButton
 				className="gap-2 font-bold"
+				funcAction="signIn"
 			>
 				<Image src="/googleLogo.png" alt="hub" width={20} height={20} />
 				<span>Continue with Google</span>
-			</Button>
+			</AuthButton>
 			<div className="text-sm">{children}</div>
 		</section>
 	);

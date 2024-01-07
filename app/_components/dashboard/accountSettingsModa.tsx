@@ -1,3 +1,4 @@
+import { EditInput } from "@/components/editInput";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -9,6 +10,7 @@ import {
 import { UserProfile } from "@/lib/types";
 import Image from "next/image";
 import { FaUser } from "react-icons/fa";
+import { updateUserProfile } from "@/lib/actions";
 
 export const AccountSettingsModal = ({
 	children,
@@ -19,14 +21,16 @@ export const AccountSettingsModal = ({
 }) => {
 	return (
 		<Dialog>
-			<DialogTrigger>{children}</DialogTrigger>
-			<DialogContent>
+			<DialogTrigger className="hover:bg-accent hover:text-accent-foreground w-full">
+				{children}
+			</DialogTrigger>
+			<DialogContent className="max-w-xl h-[90%]">
 				<section className="flex">
-					<section className="flex-[0.3] border-r-2 pr-8">
-						<Button variant="ghost" className="w-full space-x-4">
+					<section className="flex-[0.5] border-r-2 pr-4">
+						<div className="cursor-pointer w-full flex pl-3 py-2 space-x-4 bg-accent text-accent-foreground rounded-sm">
 							<FaUser />
 							<span>Account</span>
-						</Button>
+						</div>
 					</section>
 					<section className="flex-1 px-8 space-y-8">
 						<div>
@@ -38,7 +42,9 @@ export const AccountSettingsModal = ({
 							</p>
 						</div>
 						<div className="space-y-4">
-							<DialogTitle className="text-lg font-medium">Profile</DialogTitle>
+							<DialogTitle className="text-lg font-medium">
+								Profile
+							</DialogTitle>
 							<div className="flex items-center space-x-4 pl-4">
 								<Image
 									src={userProfile?.imageUrl ?? ""}
@@ -49,11 +55,17 @@ export const AccountSettingsModal = ({
 								/>
 								<p className="text-sm">{userProfile?.fullName}</p>
 							</div>
-                  </div>
-                  <div className="space-y-4">
-                     <DialogTitle className="text-lg font-medium">Username</DialogTitle>
-                     <p className="text-sm pl-4">{userProfile?.username}</p>
-                  </div>
+						</div>
+						<div className="space-y-4">
+							<DialogTitle className="text-lg font-medium">
+								Username
+							</DialogTitle>
+							<EditInput
+								updateUserProfile={updateUserProfile}
+								id={userProfile?.email}
+								value={userProfile?.username}
+							/>
+						</div>
 					</section>
 				</section>
 			</DialogContent>

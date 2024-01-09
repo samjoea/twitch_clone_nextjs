@@ -10,21 +10,18 @@ import { useRouter } from "next/navigation";
 
 export const EditInput = ({
 	value,
-	id,
 	updateUserProfile,
 }: {
 	readonly value?: string;
-	readonly id?: string;
 	readonly updateUserProfile: (
-		data: { username: string },
-		id: string
+		data: { username: string }
 	) => Promise<UserProfile | undefined>;
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [inputValue, setInputValue] = useState<string>(value ?? "");
 	const router = useRouter();
 	const handleInputEdit = async () => {
-		const res = await updateUserProfile({ username: inputValue }, id!);
+		const res = await updateUserProfile({ username: inputValue }!);
 		setIsEditing(false);
 		router.refresh();
 	};

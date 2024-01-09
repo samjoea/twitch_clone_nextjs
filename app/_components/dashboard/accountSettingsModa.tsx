@@ -1,5 +1,4 @@
 import { EditInput } from "@/components/editInput";
-import { Button } from "@/components/ui/button";
 import {
 	Dialog,
 	DialogContent,
@@ -7,10 +6,10 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
+import { updateUserProfile } from "@/lib/actions/auth-service";
 import { UserProfile } from "@/lib/types";
 import Image from "next/image";
 import { FaUser } from "react-icons/fa";
-import { updateUserProfile } from "@/lib/actions";
 
 export const AccountSettingsModal = ({
 	children,
@@ -62,7 +61,6 @@ export const AccountSettingsModal = ({
 							</DialogTitle>
 							<EditInput
 								updateUserProfile={updateUserProfile}
-								id={userProfile?.email}
 								value={userProfile?.username}
 							/>
 						</div>

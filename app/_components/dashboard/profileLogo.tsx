@@ -8,23 +8,21 @@ import { PiSignOutBold } from "react-icons/pi";
 import Image from "next/image";
 import { AccountSettingsModal } from "./accountSettingsModa";
 import { AuthButton } from "../authButton";
-import { getServerSession } from "next-auth";
-import { getUserProfile } from "@/lib/actions";
 import { Suspense } from "react";
+import { getUserProfile } from "@/lib/actions/auth-service";
 
 export const ProfileLogo = async () => {
-	const session = await getServerSession();
-	const userProfile = await getUserProfile({ email: session?.user?.email! });
+	const userProfile = await getUserProfile();
 
 	return (
 		<Suspense fallback={<div>Loading...</div>}>
 			<Popover>
-				<PopoverTrigger>
+				<PopoverTrigger className="border-2 min-w-8 border-muted-foreground hover:border-white rounded-full">
 					<Image
 						src={userProfile?.imageUrl ?? ""}
 						alt="profile"
-						width="80"
-						height="80"
+						width="40"
+						height="40"
 						className="rounded-full"
 					/>
 				</PopoverTrigger>
@@ -34,8 +32,8 @@ export const ProfileLogo = async () => {
 							<Image
 								src={userProfile?.imageUrl ?? ""}
 								alt="hub"
-								width="50"
-								height="50"
+								width="40"
+								height="40"
 								className="rounded-full border border-white p-1"
 							/>
 							<div>

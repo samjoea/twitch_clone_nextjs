@@ -12,11 +12,11 @@ export const authOptions: NextAuthOptions = {
    secret: process.env.NEXTAUTH_SECRET,
 	callbacks: {
       redirect: async () => {
-         return '/dashboard'
+         return '/'
       },
    },
    pages: {
-      signIn: '/sign-in',
+      signIn: '/',
    },
    events: {
       async signIn({ user: {  email, name, image, id } }) {

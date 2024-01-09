@@ -1,12 +1,20 @@
-import { db } from "./db";
-import { UserProfile } from "./types";
+import { getServerSession } from "next-auth";
+import { db } from "@/lib/db";
+import { UserProfile } from "@/lib/types";
 
-export const getUserProfile = async ({ email }: { email: string }) => {
+const currentUser = async () => {
+	const session = await getServerSession();
+	return session?.user;
+};
+
+export const getUserProfile = async () => {
 	"use server";
 	try {
+		const user = await currentUser();
+		if (!user) return;
 		const userProfile = await db.user.findUnique({
 			where: {
-				email,
+				email: user?.email!,
 			},
 		});
 		return userProfile;
@@ -15,15 +23,14 @@ export const getUserProfile = async ({ email }: { email: string }) => {
 	}
 };
 
-export const updateUserProfile = async (
-	userData: Partial<UserProfile>,
-	id: string
-) => {
+export const updateUserProfile = async (userData: Partial<UserProfile>) => {
 	"use server";
 	try {
+		const user = await currentUser();
+		if (!user) return;
 		const userProfile = await db.user.update({
 			where: {
-				email: id,
+				email: user?.email!,
 			},
 			data: userData!,
 		});
@@ -31,9 +38,7 @@ export const updateUserProfile = async (
 		return userProfile;
 	} catch (error) {
 		console.log("errors:::::::::::", error);
-   }
-   
-
+	}
 };
 
 export const createUserProfile = async (userData: UserProfile) => {

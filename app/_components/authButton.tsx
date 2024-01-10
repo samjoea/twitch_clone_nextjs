@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { signIn, signOut } from "next-auth/react";
+import React from "react";
 
 const func: {
 	readonly [key: string]: () => void;
@@ -22,6 +23,7 @@ export const AuthButton = ({
 	readonly className?: string;
 	readonly funcAction: string;
 }) => {
+
 	return (
 		<Button onClick={func[funcAction]} variant="ghost" className={className}>
 			{children}

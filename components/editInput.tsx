@@ -7,6 +7,7 @@ import { IoCheckmark } from "react-icons/io5";
 import { FaXmark } from "react-icons/fa6";
 import { UserProfile } from "@/lib/types";
 import { useRouter } from "next/navigation";
+import { Skeleton } from "./ui/skeleton";
 
 export const EditInput = ({
 	value,
@@ -72,3 +73,9 @@ export const EditInput = ({
 		</div>
 	);
 };
+
+export const EditInputSkeleton = () => {
+	return (
+		<Skeleton className="h-10 px-4 py-2" />
+	)
+ }

@@ -8,14 +8,13 @@ import { PiSignOutBold } from "react-icons/pi";
 import Image from "next/image";
 import { AccountSettingsModal } from "./accountSettingsModa";
 import { AuthButton } from "../authButton";
-import { Suspense } from "react";
 import { getUserProfile } from "@/lib/actions/auth-service";
 
 export const ProfileLogo = async () => {
 	const userProfile = await getUserProfile();
 
 	return (
-		<Suspense fallback={<div>Loading...</div>}>
+		<div>
 			<Popover>
 				<PopoverTrigger className="border-2 min-w-8 border-muted-foreground hover:border-white rounded-full">
 					<Image
@@ -59,6 +58,6 @@ export const ProfileLogo = async () => {
 					</section>
 				</PopoverContent>
 			</Popover>
-		</Suspense>
+		</div>
 	);
 };

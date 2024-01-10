@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 import { db } from "@/lib/db";
 import { UserProfile } from "@/lib/types";
 
-const currentUser = async () => {
+export const currentUser = async () => {
 	const session = await getServerSession();
 	return session?.user;
 };

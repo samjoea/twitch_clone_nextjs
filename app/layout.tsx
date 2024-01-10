@@ -17,15 +17,15 @@ export default async function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<ThemeProvider
-				attribute="class"
-				forcedTheme="dark"
-				storageKey="hub-theme"
-			>
-				<body className={inter.className}>
+			<body className={inter.className}>
+				<ThemeProvider
+					attribute="class"
+					forcedTheme="dark"
+					storageKey="hub-theme"
+				>
 					<main>{children}</main>
-				</body>
-			</ThemeProvider>
+				</ThemeProvider>
+			</body>
 		</html>
 	);
 }

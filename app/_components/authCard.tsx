@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { AuthButton } from "./authButton";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const AuthCard = ({
 	action,
@@ -18,10 +19,19 @@ export const AuthCard = ({
 				className="gap-2 font-bold"
 				funcAction="signIn"
 			>
-				<Image src="/googleLogo.png" alt="hub" width={20} height={20} />
+				<Image src="/googleLogo.png" alt="hub" width="20" height="20" />
 				<span>Continue with Google</span>
 			</AuthButton>
 			<div className="text-sm">{children}</div>
 		</section>
 	);
 };
+
+export const AuthCardSkeleton = () => {
+	return (
+		<div className="h-10 px-4 py-2 flex gap-2">
+			<Skeleton className="h-6 w-6 rounded-full" />
+			<Skeleton className="w-1/2 h-5" />
+		</div>
+	);
+}

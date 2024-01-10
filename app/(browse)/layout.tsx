@@ -12,9 +12,7 @@ export default function BrowseLayout({
 			<NavBar />
 			<section className="flex h-full pt-20">
 				<Sidebar />
-				<Container>
-					{children}
-				</Container>
+				<Container>{children}</Container>
 			</section>
 		</>
 	);

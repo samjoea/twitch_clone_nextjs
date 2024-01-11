@@ -5,18 +5,14 @@ import { Button } from "./ui/button";
 import { GrEdit } from "react-icons/gr";
 import { IoCheckmark } from "react-icons/io5";
 import { FaXmark } from "react-icons/fa6";
-import { UserProfile } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { Skeleton } from "./ui/skeleton";
+import { updateUserProfile } from "@/lib/actions/auth-service";
 
 export const EditInput = ({
 	value,
-	updateUserProfile,
 }: {
 	readonly value?: string;
-	readonly updateUserProfile: (
-		data: { username: string }
-	) => Promise<UserProfile | undefined>;
 }) => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [inputValue, setInputValue] = useState<string>(value ?? "");

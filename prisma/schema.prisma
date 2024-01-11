@@ -18,6 +18,24 @@ model User {
   imageUrl String @db.String()
   externalId String @unique
   bio String?
+
+  followers Follow[] @relation(name: "FollowedBy")
+  followings Follow[] @relation(name: "Following")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Follow {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  followerId String @db.Uuid
+  followingId String @db.Uuid
+
+  follower User @relation(name: "Following", fields: [followerId], references: [id], onDelete: Cascade)
+  following User @relation(name: "FollowedBy", fields: [followingId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([followerId, followingId])
 }

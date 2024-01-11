@@ -25,7 +25,7 @@ export const Recommended = ({ data }: RecommendedProps) => {
 						key={user.id}
 						imageUrl={user?.imageUrl}
 						userName={user?.username}
-						isAlive={true}
+						// isAlive={true}
 					/>
 				))}
 			</ul>

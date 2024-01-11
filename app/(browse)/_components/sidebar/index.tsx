@@ -5,7 +5,6 @@ import { Wrapper } from "./wrapper";
 
 export const Sidebar = async () => {
 	const recommended = await getRecommendations();
-	console.log("recommended", recommended);
 
 	return (
 		<Wrapper>

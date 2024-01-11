@@ -1,14 +1,20 @@
+"use server";
+
 import { getServerSession } from "next-auth";
 import { db } from "@/lib/db";
 import { UserProfile } from "@/lib/types";
 
 export const currentUser = async () => {
-	const session = await getServerSession();
-	return session?.user;
+	try {
+		const session = await getServerSession();
+		return session?.user;
+	} catch (error) {
+		return null;
+	}
+	// console.log("session", session?.user);
 };
 
 export const getUserProfile = async () => {
-	"use server";
 	try {
 		const user = await currentUser();
 		if (!user) return;
@@ -24,7 +30,6 @@ export const getUserProfile = async () => {
 };
 
 export const updateUserProfile = async (userData: Partial<UserProfile>) => {
-	"use server";
 	try {
 		const user = await currentUser();
 		if (!user) return;
@@ -42,7 +47,6 @@ export const updateUserProfile = async (userData: Partial<UserProfile>) => {
 };
 
 export const createUserProfile = async (userData: UserProfile) => {
-	"use server";
 	try {
 		const userProfile = await db.user.create({
 			data: userData!,
@@ -54,7 +58,6 @@ export const createUserProfile = async (userData: UserProfile) => {
 };
 
 export const deleteUserProfile = async ({ email }: { email: string }) => {
-	"use server";
 	try {
 		const userProfile = await db.user.delete({
 			where: {

@@ -60,7 +60,6 @@ export const AccountSettingsModal = ({
 								Username
 							</DialogTitle>
 							<EditInput
-								updateUserProfile={updateUserProfile}
 								value={userProfile?.username}
 							/>
 						</div>

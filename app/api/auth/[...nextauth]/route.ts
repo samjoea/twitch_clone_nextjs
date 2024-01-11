@@ -9,33 +9,33 @@ export const authOptions: NextAuthOptions = {
 			clientSecret: process.env.GOOGLE_SECRET ?? "",
 		}),
 	],
-   secret: process.env.NEXTAUTH_SECRET,
+	secret: process.env.NEXTAUTH_SECRET,
 	callbacks: {
-      redirect: async () => {
-         return '/'
-      },
-   },
-   pages: {
-      signIn: '/',
-   },
-   events: {
-      async signIn({ user: {  email, name, image, id } }) {
-         const userExist = await db.user.findUnique({
+		redirect: async () => {
+			return "/";
+		},
+	},
+	pages: {
+		signIn: "/",
+	},
+	events: {
+		async signIn({ user: { email, name, image, id } }) {
+			const userExist = await db.user.findUnique({
 				where: { email: email! },
 			});
-         if (!userExist) {
-            await db.user.create({
-               data: {
-                  email: email!,
-                  username: email?.split("@")[0]!,
-                  imageUrl: image!,
-                  externalId: id,
-                  fullName: name!,
-               },
-            });
-         };
-      },
-   }
+			if (!userExist) {
+				await db.user.create({
+					data: {
+						email: email!,
+						username: email?.split("@")[0]!,
+						imageUrl: image!,
+						externalId: id,
+						fullName: name!,
+					},
+				});
+			}
+		},
+	},
 };
 
 export const auth = NextAuth(authOptions);

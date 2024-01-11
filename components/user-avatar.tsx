@@ -30,13 +30,12 @@ export const UserAvatar = ({
 	showBadge,
 	size,
 }: UserAvatarProps) => {
-	console.log("imageUrl", imageUrl);
+	console.log("ImgUrl", imageUrl);
 	return (
 		<div className="relative">
 			<Avatar
 				className={cn(userAvatarStyles({ size }), {
 					"ring-2 ring-rose-500 border border-background": isAlive,
-					// "bg-red-500": !isAlive,
 				})}
 			>
 				<AvatarImage src={imageUrl} className="object-cover" />
